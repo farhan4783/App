@@ -1,0 +1,74 @@
+name: chatapp
+description: Live messaging app with WebSockets
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Networking
+  dio: ^5.4.0
+  socket_io_client: ^2.0.3+1
+
+  # State Management
+  flutter_riverpod: ^2.4.9
+  riverpod_annotation: ^2.3.3
+
+  # Routing
+  go_router: ^13.2.0
+
+  # Secure local storage
+  flutter_secure_storage: ^9.0.0
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.2
+
+  # Media
+  image_picker: ^1.0.7
+  file_picker: ^8.0.3
+  cached_network_image: ^3.3.1
+  photo_view: ^0.14.0
+
+  # Audio
+  record: ^5.0.4
+  just_audio: ^0.9.36
+
+  # Notifications
+  onesignal_flutter: ^5.1.2
+
+  # UI utilities
+  intl: ^0.19.0
+  timeago: ^3.6.0
+  emoji_picker_flutter: ^2.1.0
+  flutter_local_notifications: ^17.0.0
+  uuid: ^4.3.3
+  shimmer: ^3.0.0
+  lottie: ^3.1.0
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.8
+  riverpod_generator: ^2.3.9
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/animations/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
