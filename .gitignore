@@ -1,0 +1,29 @@
+# ─── Backend ───────────────────────────────────────────
+chatapp-backend/node_modules/
+chatapp-backend/.env
+chatapp-backend/.env.local
+chatapp-backend/.env.production
+
+# ─── Flutter ───────────────────────────────────────────
+chatapp/.dart_tool/
+chatapp/.flutter-plugins
+chatapp/.flutter-plugins-dependencies
+chatapp/.packages
+chatapp/build/
+chatapp/.idea/
+chatapp/*.iml
+chatapp/android/.gradle/
+chatapp/android/local.properties
+chatapp/android/app/google-services.json
+chatapp/ios/Pods/
+chatapp/ios/Runner.xcworkspace/xcshareddata/
+chatapp/ios/GoogleService-Info.plist
+
+# ─── General ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+*.zip
+.env
+.env.*
+!.env.example
