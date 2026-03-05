@@ -99,3 +99,31 @@ flutter run
 - [ ] Image sends and displays correctly
 - [ ] Dark/Light theme toggle works in Settings
 - [ ] Logout and login again → chats still visible
+
+
+
+
+
+✅ Git is fully cleaned up and pushed. Here's exactly what was done:
+
+What was wrong
+The entire node_modules/ folder (13,460 files) was committed in the first commit. npm packages sometimes contain strings that look like secrets/API keys, which triggered GitHub's secret scanning alert.
+
+What was fixed
+Step	Action
+1	Created .gitignore files for root, chatapp-backend/, and chatapp/
+2	git rm -r --cached chatapp-backend/node_modules — removed from index
+3	git filter-branch — rewrote all past commits to delete node_modules from history
+4	git reflog expire + git gc --prune=now — purged all internal backup refs
+5	git push --force — pushed clean history to GitHub
+Verification
+node_modules in git tracking → ZERO files
+.env files in git tracking  → ZERO files (only .env.example remains, which is safe)
+Repo size before → 13,460+ files | After → 181 objects (124 KB)
+⚠️ Action required on your side
+Rotate any real secrets you may have used. GitHub's alert means those values were publicly visible. If you set real values in any .env file:
+
+Regenerate your JWT secrets
+Rotate Cloudinary API keys
+Rotate any OneSignal API keys
+From now on, .env files are gitignored — only the safe .env.example template will ever be committed.
