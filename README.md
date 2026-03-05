@@ -1,4 +1,4 @@
-# ChatApp — WhatsApp-like Live Messaging (WebSocket Edition)
+# ChatApp — WhatsApp-like Live Messaging
 
 A real-time chat application built with **Flutter + Dart** (frontend) and **Node.js + Socket.IO** (backend). No Firebase, no phone numbers.
 
