@@ -17,9 +17,9 @@ const searchUsers = async (req, res) => {
                     { id: { not: currentUserId } },
                     {
                         OR: [
-                            { username: { contains: query, mode: 'insensitive' } },
-                            { email: { contains: query, mode: 'insensitive' } },
-                            { displayName: { contains: query, mode: 'insensitive' } },
+                            { username: { contains: query } },
+                            { email: { contains: query } },
+                            { displayName: { contains: query } },
                         ],
                     },
                 ],

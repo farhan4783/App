@@ -25,12 +25,12 @@ class UserModel {
     return UserModel(
       id: json['id'] as String,
       username: json['username'] as String,
-      email: json['email'] as String,
-      displayName: json['displayName'] as String,
+      email: json['email'] as String? ?? '',
+      displayName: json['displayName'] as String? ?? 'Unknown',
       photoUrl: json['photoUrl'] as String?,
       bio: json['bio'] as String?,
       isOnline: json['isOnline'] as bool? ?? false,
-      lastSeen: DateTime.parse(json['lastSeen'] as String),
+      lastSeen: json['lastSeen'] != null ? DateTime.parse(json['lastSeen'] as String) : DateTime.now(),
       createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt'] as String) : null,
     );
   }
