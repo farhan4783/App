@@ -31,6 +31,7 @@ const messageHandler = (io, socket) => {
                     mediaUrl: mediaUrl || null,
                     fileName: fileName || null,
                     status: 'SENT',
+                    seenBy: '[]',
                 },
                 include: {
                     sender: {
@@ -39,8 +40,13 @@ const messageHandler = (io, socket) => {
                 },
             });
 
+            const emittedMessage = {
+                ...message,
+                seenBy: JSON.parse(message.seenBy),
+            };
+
             // Broadcast to all members in the chat room
-            io.to(chatId).emit('new_message', message);
+            io.to(chatId).emit('new_message', emittedMessage);
 
             // Update status to DELIVERED for online members (excluding sender)
             const roomSockets = await io.in(chatId).fetchSockets();
@@ -73,11 +79,15 @@ const messageHandler = (io, socket) => {
             const message = await prisma.message.findUnique({ where: { id: messageId } });
             if (!message || message.senderId === userId) return;
 
-            if (!message.seenBy.includes(userId)) {
+            let seenByArray = [];
+            try { seenByArray = JSON.parse(message.seenBy); } catch (e) {}
+
+            if (!seenByArray.includes(userId)) {
+                seenByArray.push(userId);
                 const updated = await prisma.message.update({
                     where: { id: messageId },
                     data: {
-                        seenBy: { push: userId },
+                        seenBy: JSON.stringify(seenByArray),
                         status: 'READ',
                     },
                 });
@@ -86,7 +96,7 @@ const messageHandler = (io, socket) => {
                 io.to(chatId).emit('message_status', {
                     messageId,
                     status: 'READ',
-                    seenBy: updated.seenBy,
+                    seenBy: seenByArray,
                 });
             }
         } catch (err) {

@@ -154,7 +154,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
               data: (msgs) {
                 if (msgs.isEmpty) {
                   return Center(
-                    child: Text('Say hello! 👋', style: TextStyle(color: cs.onBackground.withOpacity(0.3))),
+                    child: Text('Say hello! 👋', style: TextStyle(color: cs.onSurface.withOpacity(0.3))),
                   );
                 }
                 return ListView.builder(
@@ -266,12 +266,12 @@ class _MessageBubble extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
-                color: cs.onBackground.withOpacity(0.07),
+                color: cs.onSurface.withOpacity(0.07),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 _formatDate(message.sentAt),
-                style: TextStyle(fontSize: 11, color: cs.onBackground.withOpacity(0.4)),
+                style: TextStyle(fontSize: 11, color: cs.onSurface.withOpacity(0.4)),
               ),
             ),
           ),
@@ -279,18 +279,25 @@ class _MessageBubble extends StatelessWidget {
           alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
             margin: EdgeInsets.only(
-              bottom: 4,
+              bottom: 6,
               left: isMine ? 64 : 0,
               right: isMine ? 0 : 64,
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: bubbleColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                )
+              ],
               borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(18),
-                topRight: const Radius.circular(18),
-                bottomLeft: isMine ? const Radius.circular(18) : const Radius.circular(4),
-                bottomRight: isMine ? const Radius.circular(4) : const Radius.circular(18),
+                topLeft: const Radius.circular(20),
+                topRight: const Radius.circular(20),
+                bottomLeft: isMine ? const Radius.circular(20) : const Radius.circular(6),
+                bottomRight: isMine ? const Radius.circular(6) : const Radius.circular(20),
               ),
             ),
             child: Column(
@@ -298,34 +305,34 @@ class _MessageBubble extends StatelessWidget {
               children: [
                 if (message.type == MessageType.image && message.mediaUrl != null)
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(message.mediaUrl!, width: 200, fit: BoxFit.cover),
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(message.mediaUrl!, width: 220, fit: BoxFit.cover),
                   )
                 else if (message.type == MessageType.file)
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.attach_file, color: textColor, size: 18),
-                      const SizedBox(width: 4),
+                      Icon(Icons.insert_drive_file_rounded, color: textColor, size: 20),
+                      const SizedBox(width: 8),
                       Flexible(
                         child: Text(
                           message.fileName ?? 'File',
-                          style: TextStyle(color: textColor, fontSize: 14),
+                          style: TextStyle(color: textColor, fontSize: 15, fontWeight: FontWeight.w500),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
                   )
                 else
-                  Text(message.text ?? '', style: TextStyle(color: textColor, fontSize: 14)),
+                  Text(message.text ?? '', style: TextStyle(color: textColor, fontSize: 15, height: 1.3)),
 
-                const SizedBox(height: 2),
+                const SizedBox(height: 4),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       _formatTime(message.sentAt),
-                      style: TextStyle(fontSize: 10, color: textColor.withOpacity(0.5)),
+                      style: TextStyle(fontSize: 10, color: textColor.withOpacity(0.6)),
                     ),
                     if (isMine) ...[
                       const SizedBox(width: 4),
@@ -335,10 +342,10 @@ class _MessageBubble extends StatelessWidget {
                             : message.status == MsgStatus.delivered
                                 ? Icons.done_all
                                 : Icons.done,
-                        size: 13,
+                        size: 14,
                         color: message.status == MsgStatus.read
                             ? AppColors.read
-                            : textColor.withOpacity(0.4),
+                            : textColor.withOpacity(0.5),
                       ),
                     ],
                   ],

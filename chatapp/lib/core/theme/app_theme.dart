@@ -10,10 +10,8 @@ class AppTheme {
         colorScheme: const ColorScheme.dark(
           primary: AppColors.primaryDark,
           secondary: AppColors.primaryDark,
-          surface: AppColors.bgDarkCard,
-          background: AppColors.bgDark,
+          surface: AppColors.bgDark,
           onPrimary: Colors.white,
-          onBackground: AppColors.textPrimaryDark,
           onSurface: AppColors.textPrimaryDark,
         ),
         scaffoldBackgroundColor: AppColors.bgDark,
@@ -85,10 +83,8 @@ class AppTheme {
         colorScheme: const ColorScheme.light(
           primary: AppColors.primaryLight,
           secondary: AppColors.primaryLight,
-          surface: AppColors.bgLightCard,
-          background: AppColors.bgLight,
+          surface: AppColors.bgLight,
           onPrimary: Colors.white,
-          onBackground: AppColors.textPrimaryLight,
           onSurface: AppColors.textPrimaryLight,
         ),
         scaffoldBackgroundColor: AppColors.bgLight,

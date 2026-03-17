@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../../models/chat_model.dart';
+import '../../models/message_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/chat_provider.dart';
 import '../../services/auth_service.dart';
@@ -58,12 +59,12 @@ class HomeScreen extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.chat_bubble_outline_rounded, size: 64, color: cs.onBackground.withOpacity(0.2)),
+                  Icon(Icons.chat_bubble_outline_rounded, size: 64, color: cs.onSurface.withOpacity(0.2)),
                   const SizedBox(height: 16),
-                  Text('No chats yet', style: TextStyle(color: cs.onBackground.withOpacity(0.4), fontSize: 16)),
+                  Text('No chats yet', style: TextStyle(color: cs.onSurface.withOpacity(0.4), fontSize: 16)),
                   const SizedBox(height: 8),
                   Text('Tap 🔍 to find people to chat with',
-                      style: TextStyle(color: cs.onBackground.withOpacity(0.3), fontSize: 13)),
+                      style: TextStyle(color: cs.onSurface.withOpacity(0.3), fontSize: 13)),
                 ],
               ),
             );
@@ -150,7 +151,7 @@ class _ChatTile extends ConsumerWidget {
                             ? Icons.done_all
                             : Icons.done,
                     size: 14,
-                    color: lastMsg.status == MsgStatus.read ? cs.primary : cs.onBackground.withOpacity(0.4),
+                    color: lastMsg.status == MsgStatus.read ? cs.primary : cs.onSurface.withOpacity(0.4),
                   ),
                   const SizedBox(width: 4),
                 ],
@@ -165,16 +166,16 @@ class _ChatTile extends ConsumerWidget {
                                 : '📎 File',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: cs.onBackground.withOpacity(0.5), fontSize: 13),
+                    style: TextStyle(color: cs.onSurface.withOpacity(0.5), fontSize: 13),
                   ),
                 ),
               ],
             )
-          : Text('No messages yet', style: TextStyle(color: cs.onBackground.withOpacity(0.3), fontSize: 13)),
+          : Text('No messages yet', style: TextStyle(color: cs.onSurface.withOpacity(0.3), fontSize: 13)),
       trailing: lastMsg != null
           ? Text(
               timeago.format(lastMsg.sentAt, allowFromNow: true),
-              style: TextStyle(fontSize: 11, color: cs.onBackground.withOpacity(0.4)),
+              style: TextStyle(fontSize: 11, color: cs.onSurface.withOpacity(0.4)),
             )
           : null,
       onTap: () => context.push('/chat/${chat.id}', extra: {'chatName': chat.displayName(currentUserId)}),

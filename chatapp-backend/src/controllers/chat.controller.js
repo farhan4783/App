@@ -38,11 +38,14 @@ const getChats = async (req, res) => {
             },
         });
 
-        const chats = chatMemberships.map((m) => ({
-            ...m.chat,
-            lastMessage: m.chat.messages[0] || null,
-            messages: undefined,
-        }));
+        const chats = chatMemberships.map((m) => {
+            const lastMsg = m.chat.messages[0];
+            return {
+                ...m.chat,
+                lastMessage: lastMsg ? { ...lastMsg, seenBy: JSON.parse(lastMsg.seenBy || '[]') } : null,
+                messages: undefined,
+            };
+        });
 
         res.json({ chats });
     } catch (err) {
@@ -99,8 +102,13 @@ const createOrGetDirectChat = async (req, res) => {
         });
 
         if (existingChat) {
+            const lastMsg = existingChat.messages[0];
             return res.json({
-                chat: { ...existingChat, lastMessage: existingChat.messages[0] || null, messages: undefined },
+                chat: { 
+                    ...existingChat, 
+                    lastMessage: lastMsg ? { ...lastMsg, seenBy: JSON.parse(lastMsg.seenBy || '[]') } : null,
+                    messages: undefined 
+                },
                 isNew: false,
             });
         }
@@ -225,7 +233,12 @@ const getMessages = async (req, res) => {
             take: parseInt(limit),
         });
 
-        res.json({ messages: messages.reverse(), hasMore: messages.length === parseInt(limit) });
+        const mappedMessages = messages.map(msg => ({
+            ...msg,
+            seenBy: JSON.parse(msg.seenBy || '[]')
+        }));
+
+        res.json({ messages: mappedMessages.reverse(), hasMore: mappedMessages.length === parseInt(limit) });
     } catch (err) {
         console.error('[getMessages]', err);
         res.status(500).json({ error: 'Server error' });
