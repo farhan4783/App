@@ -33,7 +33,7 @@ dependencies:
   photo_view: ^0.14.0
 
   # Audio
-  record: ^5.0.4
+  record: ^6.2.0
   just_audio: ^0.9.36
 
   # Notifications
