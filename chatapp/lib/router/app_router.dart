@@ -14,12 +14,13 @@ import '../screens/settings/settings_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
+  final currentUser = ref.watch(currentUserProvider);
 
   return GoRouter(
     initialLocation: '/splash',
     redirect: (context, state) {
       final isLoading = authState.isLoading;
-      final isLoggedIn = authState.valueOrNull != null;
+      final isLoggedIn = currentUser != null || authState.valueOrNull != null;
       final loc = state.matchedLocation;
 
       if (isLoading && loc != '/splash') return '/splash';

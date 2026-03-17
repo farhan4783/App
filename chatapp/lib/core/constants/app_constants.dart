@@ -1,8 +1,8 @@
 class AppConstants {
   // ─── Server URLs ─────────────────────────────────────────────
   // Update this to your server IP when testing on a real device
-  static const String baseUrl = 'http://10.0.2.2:3001'; // Android emulator → localhost
-  static const String socketUrl = 'http://10.0.2.2:3001';
+  static const String baseUrl = String.fromEnvironment('API_URL', defaultValue: 'http://localhost:3001');
+  static const String socketUrl = String.fromEnvironment('API_URL', defaultValue: 'http://localhost:3001');
 
   // ─── Storage Keys ─────────────────────────────────────────────
   static const String accessTokenKey = 'access_token';
